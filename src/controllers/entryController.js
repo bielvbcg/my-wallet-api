@@ -1,9 +1,10 @@
 import db from '../db.js';
+import dayjs from 'dayjs';
 
 export async function newEntry(req, res) {
   try {
     const user = res.locals.user
-    const newEntry = req.body
+    const newEntry = { ...req.body, date: dayjs().format("DD/MM") }
 
     await db.collection("users").findOneAndUpdate(
       { _id: user._id },
